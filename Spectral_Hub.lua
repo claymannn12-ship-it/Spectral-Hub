@@ -9,7 +9,8 @@ local PlayerGui = Player:WaitForChild("PlayerGui")
 -- Script URLs
 local scripts = {
     ["Aladia PvP"] = "https://raw.githubusercontent.com/claymannn12-ship-it/Aladia-PvP/main/main.lua",
-    ["Arsenal"] = "https://raw.githubusercontent.com/claymannn12-ship-it/Arsenal/main/Main.lua"
+    ["Arsenal"] = "https://raw.githubusercontent.com/claymannn12-ship-it/Arsenal/main/Main.lua",
+    ["Strongest_Battleground"] = "https://raw.githubusercontent.com/claymannn12-ship-it/Strongest_Battleground/refs/heads/main/Spectral_Hub.lua"
 }
 
 -- Create ScreenGui
@@ -19,12 +20,16 @@ screenGui.Parent = PlayerGui
 
 -- Main Frame
 local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 300, 0, 200)
+frame.Size = UDim2.new(0, 300, 0, 240)
 frame.Position = UDim2.new(0.5, -150, -0.5, 0) -- offscreen start
 frame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 frame.BorderSizePixel = 0
 frame.AnchorPoint = Vector2.new(0.5, 0.5)
 frame.Parent = screenGui
+
+-- Make the GUI draggable
+frame.Active = true
+frame.Draggable = true
 
 -- Entrance animation
 TweenService:Create(frame, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {Position = UDim2.new(0.5, 0, 0.5, 0)}):Play()
@@ -82,13 +87,11 @@ local function createButton(name, yPos)
         else
             warn("Failed to execute " .. name .. ": " .. tostring(err))
         end
-        -- GUI exit animation
-        TweenService:Create(frame, TweenInfo.new(0.5, Enum.EasingStyle.Back, Enum.EasingDirection.In), {Position = UDim2.new(0.5, 0, -0.5, 0)}):Play()
-        wait(0.5)
-        screenGui:Destroy()
+        -- GUI stays open for multiple script executions
     end)
 end
 
 -- Buttons
 createButton("Aladia PvP", 80)
 createButton("Arsenal", 130)
+createButton("Strongest_Battleground", 180)
